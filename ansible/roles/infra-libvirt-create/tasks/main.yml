@@ -1,0 +1,11 @@
+- debug:
+    var: instances
+
+- name: Create some libvirt stuff  
+  with_items: "{{ instances }}"
+  vars:
+    ramMb: 4096
+    vcpuCount: 4
+    osVariant: rhel7.0
+  include_tasks: create.yml
+

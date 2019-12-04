@@ -1,0 +1,4 @@
+- include_tasks: add-vm-to-inventory.yml
+  with_items: "{{ instances }}"
+
+

@@ -1,0 +1,37 @@
+- debug:
+    msg: "Getting facts about VM: {{ item.name }} "
+
+- virt:
+    command: get_xml
+    name: "{{ guid}}-{{ item.name }}"
+  register: xmldef
+
+- copy: 
+    content: "{{ xmldef.get_xml }}"
+    dest: /tmp/xmldef
+
+- xml: 
+    content: text
+    path: /tmp/xmldef
+    xpath: "/domain/name"
+  register: xmlVmName
+
+- debug:
+    var: xmlVmName.matches[0].name
+
+- add_host:
+    name: "{{ item.name }}"
+    shortname: "{{ item.name }}"
+    state: "running"
+    remote_user: root
+    ansible_user: root
+    region: libvirt
+    public_dns_name: "{{ xmlVmName.matches[0].name }}"
+    bastion: "{{ waffles | default('') }}"
+    groups: 
+      - newnodes
+      - bastions
+      - libvirt
+
+- debug:
+    var: hostvars

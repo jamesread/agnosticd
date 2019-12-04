@@ -1,0 +1,6 @@
+---
+infra_libvirt_base_image_directory: "/opt/images"
+infra_libvirt_base_image_filename: "CentOS-7-x86_64-GenericCloud.qcow2"
+infra_libvirt_customize_method: "virt-customize"
+infra_libvirt_name_format: "{{guid}}-{{ item.name }}"
+infra_libvirt_cow_from_base_image: false

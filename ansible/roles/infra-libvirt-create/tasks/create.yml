@@ -1,0 +1,46 @@
+- debug: 
+    msg: "Creating libvirt VM as close as possible to this definition: \n {{item}}"
+
+- debug:
+    msg: "Using libvirt base image directory: {{ infra_libvirt_base_image_directory }}"
+
+- stat:
+    path: "{{ infra_libvirt_base_image_directory }}/{{ infra_libvirt_base_image_filename }}"
+
+- set_fact: 
+    vmName: "{{ infra_libvirt_name_format }}"
+
+- when: infra_libvirt_customize_method == "cloud-init"
+  include_tasks: generate-cloud-init.yml
+
+- name: copy disk (not using COW from base image)
+  copy: 
+    src: "{{ infra_libvirt_base_image_directory }}/{{ infra_libvirt_base_image_filename }}"
+    dest: /var/lib/libvirt/images/{{vmName}}.qcow2
+    remote_src: true
+  when: not infra_libvirt_cow_from_base_image
+
+- name: copy disk (USING COW from base image)
+  command: qemu-img create -f qcow2 -b "{{ infra_libvirt_base_image_directory }}/{{ infra_libvirt_base_image_filename }}" /var/lib/libvirt/images/{{vmName}}.qcow2
+  when: infra_libvirt_cow_from_base_image 
+
+- name: create vms
+  command: virt-install -n {{vmName}} --memory "{{ ramMb }}" --disk "/var/lib/libvirt/images/{{ vmName }}.qcow2" --disk "/var/lib/libvirt/images/{{ vmName }}.iso,device=cdrom" --import --noautoconsole --os-variant "{{ osVariant }}" --vcpus "{{ vcpuCount }}" --cpu host
+  when: infra_libvirt_customize_method == "cloud-init"
+
+- when: infra_libvirt_customize_method == "virt-customize"
+  block: 
+  - name: customize vm
+    command: virt-customize -a "/var/lib/libvirt/images/{{ vmName }}.qcow2" --root-password password:password --uninstall cloud-init --hostname "{{ vmName }}" --ssh-inject root:file:/root/.ssh/id_rsa.pub --selinux-relabel
+
+  - name: sm register
+    command: virt-customize -a "/var/lib/libvirt/images/{{ vmName }}.qcow2" --sm-credentials "{{ rh_username }}:password:{{ rh_password }}" --sm-register --sm-attach auto
+    when: rh_username is defined and rh_password is defined
+
+  - name: virt-install after virt-customize
+    command: virt-install -n {{vmName}} --memory "{{ ramMb }}" --disk "/var/lib/libvirt/images/{{ vmName }}.qcow2" --import --noautoconsole --os-variant "{{ osVariant }}" --vcpus "{{ vcpuCount }}" --cpu host
+
+- name: virt-install - customization skipped
+  command: virt-install -n {{vmName}} --memory "{{ ramMb }}" --disk "/var/lib/libvirt/images/{{ vmName }}.qcow2" --import --noautoconsole --os-variant "{{ osVariant }}" --vcpus "{{ vcpuCount }}" --cpu host
+  when: infra_libvirt_customize_method == "skip"
+

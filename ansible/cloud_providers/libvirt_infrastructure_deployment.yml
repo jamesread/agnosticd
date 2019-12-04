@@ -1,0 +1,43 @@
+---
+- import_playbook: libvirt_pre_checks.yml
+
+- name: Step 001.1 Deploy Infrastructure
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  tags:
+    - step001
+    - step001.1
+    - deploy_infrastructure # This seems bogus here, as skipping this tag means this file would not run
+    - deploy_vms
+  tasks:
+    - name: Create VMs
+      include_role:
+        name: infra-libvirt-create
+
+- name: Step 001.2 Create Inventory and SSH config setup
+  hosts: infra_libvirt_hosts
+  gather_facts: false
+  become: false
+  tags:
+    - step001
+    - step001.2
+    - create_inventory
+    - create_ssh_config
+  tasks:
+    - name: Run infra-libvirt-create-inventory Role
+      import_role:
+        name: infra-libvirt-create-inventory
+
+- name: Step XXX.Y Common SSH Config Generator Role
+  hosts: localhost
+  gather_facts: false
+  become: false
+  connection: local
+  tasks:
+    - name: Run Common SSH Config Generator Role
+      import_role:
+        name: infra-common-ssh-config-generate
+
+

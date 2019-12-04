@@ -1,0 +1,18 @@
+- debug:
+    var: instances
+
+- add_host: 
+    hostname: "{{ infra_libvirt_hostname }}"
+    groups: infra_libvirt_hosts
+    instances: "{{ instances }}"
+
+    # As this host is erroneously still available during the common ssh_config role
+    # we need to set a bunch of needless junk here so that role doesn't fail
+    bastion: '' 
+    isolated: true
+    private_ip_address: 'example.com'
+    public_ip_address: 'example.com'
+
+# FIXME
+# install lxml
+# install virt-customize, libguestfs-tools
