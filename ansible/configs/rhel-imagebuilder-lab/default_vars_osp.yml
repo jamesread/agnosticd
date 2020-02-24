@@ -3,3 +3,15 @@ ansible_user: cloud-user
 remote_user: cloud-user
 
 chomped_zone_internal_dns: "example.com"
+
+image_type: rhel-8.1
+
+bastion_instance_type: 
+    osp: 2c2g30d
+
+workstation_instance_type: 
+    osp: 2c4g30d
+
+hypervisor_instance_type: 
+    osp: 2c4g30d
+
