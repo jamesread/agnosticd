@@ -16,7 +16,7 @@ jobs:
       id: adocbuild
       uses: avattathil/asciidoctor-action@master
       with:
-          program: "asciidoctor -D docs --backend=html5 -o index.html docs/README.adoc"
+          program: "asciidoctor -D docs --backend=html5 -o docs/index.html docs/README.adoc"
     - name: Print execution time
       run: echo "Time ${{ steps.adocbuild.outputs.time }}"
     - name: Deploy docs to ghpages
@@ -24,4 +24,4 @@ jobs:
       with: 
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         publish_branch: gh-pages
-        publish_dir: ./
+        publish_dir: ./docs/
