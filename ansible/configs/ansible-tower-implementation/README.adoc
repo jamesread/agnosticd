@@ -1,3 +1,0 @@
-== Ansible Tower Implementation
-
-* novello based config

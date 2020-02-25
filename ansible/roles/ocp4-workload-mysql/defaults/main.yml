@@ -1,4 +1,0 @@
----
-become_override: no
-ocp_username: system:admin
-silent: False

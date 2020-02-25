@@ -1,5 +1,0 @@
-operator_mssql_namespace: operator-db-app
-
-# workload vars
-operator_mssql_workload_destroy: "{{ False if (ACTION == 'create' or ACTION == 'provision') else True }}"
-silent: false

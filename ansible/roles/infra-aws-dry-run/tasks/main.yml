@@ -1,3 +1,0 @@
----
-- import_tasks: ec2.yml
-- import_tasks: cloudformation.yml
