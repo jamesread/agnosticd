@@ -1,0 +1,26 @@
+= Agnosticd documentation
+:docinfo: shared
+:title: Agnosticd documentation
+:toc: left
+:toclevels: 2
+:sectanchors:
+:sectlinks:
+
+toc::[]
+
+include::Creating_a_cloud_deployer.adoc[Creating a Cloud Deployer]
+include::Creating_a_config_deployer.adoc[Creating a Config (workload)]
+include::FAQ.adoc[FAQ]
+
+[source,bash]
+----
+CONTRIBUTING.md
+Creating_a_cloud_deployer.adoc
+Creating_a_config.adoc
+FAQ.adoc
+How_to_use_galaxy_roles_in_your_config.adoc
+Preparing_your_workstation.adoc
+README.adoc
+User_stories.adoc
+----
+

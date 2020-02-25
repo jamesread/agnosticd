@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Documentation Guide</title>
+<title>Agnosticd documentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,26 +436,78 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
+<h1>Agnosticd documentation</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_main">Main</a>
+<ul class="sectlevel2">
+<li><a href="#_deployment_stages">Deployment Stages</a></li>
+<li><a href="#_cloud_providers">Cloud Providers</a></li>
+<li><a href="#_aws_questions">AWS Questions</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_documentation_guide">Documentation Guide</h2>
+<div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
+<!-- toc disabled -->
 <div class="paragraph">
-<p>Currently, Documents 2018, the documents are being revised and new documents are in the process of being created.</p>
+<p>Unresolved directive in README.adoc - include::Creating_a_config_deployer.adoc[Creating a Config (workload)]
+:toc2:</p>
 </div>
-</td>
-</tr>
-</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_main"><a class="anchor" href="#_main"></a><a class="link" href="#_main">Main</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deployment_stages"><a class="anchor" href="#_deployment_stages"></a><a class="link" href="#_deployment_stages">Deployment Stages</a></h3>
+<div class="olist upperalpha">
+<ol class="upperalpha">
+<li>
+<p>Can I bypass one or more stages</p>
+</li>
+<li>
+<p>Yes, <code>main.yml</code> tags each stage, use <code>--skip-tags</code></p>
+</li>
+<li>
+<p>Where should I store credentails</p>
+</li>
+<li>
+<p>Never inside the repo. A common pattern is to store them in the home directoy
+of the user who executes <code>ansible-playbook</code>. For example <code>~/.ssh</code> for ssh keys,
+<code>~/.aws/credentials</code> for AWS etc.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_providers"><a class="anchor" href="#_cloud_providers"></a><a class="link" href="#_cloud_providers">Cloud Providers</a></h3>
+<div class="olist upperalpha">
+<ol class="upperalpha">
+<li>
+<p>Can I bypass Stage 1 Cloud Providers completely?</p>
+</li>
+<li>
+<p>Yes. See <code>configs/linklight/README</code> for an example and use <code>--skip-tags=deploy_infrastructure</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aws_questions"><a class="anchor" href="#_aws_questions"></a><a class="link" href="#_aws_questions">AWS Questions</a></h3>
+<div class="olist upperalpha">
+<ol class="upperalpha">
+<li>
+<p>Can I use AWS Profiles
+A.</p>
+</li>
+</ol>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -472,9 +524,10 @@ User_stories.adoc</code></pre>
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-25 11:56:54 UTC
+Last updated 2020-02-25 12:09:17 UTC
 </div>
 </div>
 </body>
