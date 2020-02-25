@@ -3,7 +3,8 @@ name: build adocs
 on:
   push:
     branches:
-    - master
+    - jread-github-pages
+
 jobs:
   adoc_build:
     runs-on: ubuntu-latest
