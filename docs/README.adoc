@@ -1,11 +1,16 @@
-== Documentation Guide 
+= Agnosticd documentation
+:docinfo: shared
+:title: Agnosticd documentation
+:toc: left
+:toclevels: 2
+:sectanchors:
+:sectlinks:
 
+toc::[]
 
-[NOTE]
-====
-Currently, Documents 2018, the documents are being revised and new documents are in the process of being created.
-====
-
+include::Creating_a_cloud_deployer.adoc[Creating a Cloud Deployer]
+include::Creating_a_config_deployer.adoc[Creating a Config (workload)]
+include::FAQ.adoc[FAQ]
 
 [source,bash]
 ----
